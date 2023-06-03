@@ -19,6 +19,13 @@ A basic PowerShell script to automate the checking of common places forensic art
 - Event Logs
   - Copies Security, System & Microsoft-Windows-PowerShell Operational event logs files 
 
+... To do ...
+
+- Take a memory dump
+- Log past RDP sessions & SMB shares  
+- Log installed software
+- Automatic querying of Event Logs with Get-WinEvent
+
 # Expected output 
 
 All these findings are sorted neatly into sub-folders of a DF_Findings folder. Typical output may look like the below
