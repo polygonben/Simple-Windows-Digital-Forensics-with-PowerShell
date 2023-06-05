@@ -17,7 +17,10 @@ A basic PowerShell script to automate the checking of common places forensic art
   - Scheduled tasks
   - Startup folder for each user 
 - Event Logs
-  - Copies Security, System & Microsoft-Windows-PowerShell Operational event logs files 
+  - Copies Application, Security, System, Windows Powershell & Microsoft-Windows-PowerShell Operational event logs files
+- Prefetch folder
+- Jump list for each user
+- System Resource Usage Monitor (SRUMDB.dat) file
 
 ... To do ...
 
@@ -31,6 +34,10 @@ A basic PowerShell script to automate the checking of common places forensic art
 All these findings are sorted neatly into sub-folders of a DF_Findings folder. Typical output may look like the below
   - ....\DF_Findings\
     -  Processes.txt
+    -  SRUBD.dat
+    -  Prefetch\
+        - CHROME.EXE-ADFAHGAD.pf
+        - ....   
     - Logs\
       - Security.evtx
       - System.evtx
@@ -52,6 +59,13 @@ All these findings are sorted neatly into sub-folders of a DF_Findings folder. T
     - Users\
       - user01\
         - PSHistory.txt
+        - AutomaticDestinations\
+          - ...automaticDestinations.ms
+          - ...
       - user02\
         - PSHistory.txt
+        - AutomaticDestinations\
+          - ...automaticDestinations.ms
+          - ...
       - localUserList.txt
+        
