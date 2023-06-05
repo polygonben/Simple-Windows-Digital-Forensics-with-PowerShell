@@ -12,6 +12,7 @@ function Get-AllUsers {
     Get-LocalUser | Where-Object {$_.Enabled -eq $true} | ForEach-Object {
         Get-UserPSHistory -username $_.Name
         Get-Persistence-StartupFolder -username $_.Name
+        Get-JumpList -username $_.Name
     }
 
 }
@@ -51,7 +52,7 @@ function Get-NetworkInformation {
 function Get-ProccessInfo {
     $ProcessInfo = "$cwd\DF_Findings\Processes.txt"
     Get-WmiObject Win32_Process | Select Name, ParentProcessId, ProcessId, ExecutablePath | Out-File -FilePath $ProcessInfo -Force
-    Write-Host "Current running processes file created: $ProcessInfo"
+    Write-Host "Current running processes file created: $ProcessInfo`n"
 }
 
 function Get-Persistence {
@@ -89,7 +90,7 @@ function Get-Persistence-StartupFolder {
 
 function Get-CopyEventLogs {
     mkdir -Path "$cwd\DF_Findings\Logs" -Force | Out-Null
-    $log = @('Security.evtx', 'System.evtx', 'Microsoft-Windows-PowerShell%4Operational.evtx') 
+    $log = @('Security.evtx', 'System.evtx', 'Microsoft-Windows-PowerShell%4Operational.evtx', 'Windows PowerShell.evtx' ,'Application.evtx') #Feel free to edit this line to add more log files!
     
     ForEach ($logFileName in $log) {
         Copy-Item -Path "C:\Windows\System32\winevt\Logs\$logFileName" -Destination "$cwd\DF_Findings\Logs\$logFileName" -Force
@@ -97,8 +98,27 @@ function Get-CopyEventLogs {
     }
     Write-Host "Log files copied to: $cwd\DF_Findings\Log`n"
 
-
 }
+
+function Get-Prefetch {
+    Copy-Item -Path "C:\Windows\Prefetch" -Destination "$cwd\DF_Findings\" -Recurse   
+    Write-Host "Prefetch folder created: $cwd\DF_Findings\Prefetch`n"
+    
+}
+
+function Get-Srum {
+    Copy-Item -Path "C:\Windows\System32\sru\SRUDB.dat" -Destination "$cwd\DF_Findings\SRUDB.dat"
+    Write-Host "System Resource Usage Monitor log file created: $cwd\DF_Findings\SRUDB.dat`n"
+}
+
+function Get-JumpList {
+    param (
+        $username
+    )
+    Copy-Item -Path "C:\Users\$username\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations" -Destination "$cwd\DF_Findings\Users\$username\" -Force -Recurse
+    Write-Host "$username Jump List file created: $cwd\DF_Findings\Users\$username\AutomaticDestinations`n"
+}
+
 
 
 Get-Persistence
@@ -106,3 +126,5 @@ Get-AllUsers
 Get-NetworkInformation
 Get-ProccessInfo
 Get-CopyEventLogs
+Get-Prefetch
+Get-Srum
