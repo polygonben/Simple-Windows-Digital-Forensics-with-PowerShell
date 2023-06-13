@@ -41,7 +41,8 @@ All these findings are sorted neatly into sub-folders of a DF_Findings folder. T
     - Logs\
       - Security.evtx
       - System.evtx
-      - Microsoft-Windows-PowerShell%4Operational.evtx    
+      - Microsoft-Windows-PowerShell%4Operational.evtx  
+      - ...  
     - Network\
       - DnsClientCache.txt
       - EstablishedTCPConnections.txt
